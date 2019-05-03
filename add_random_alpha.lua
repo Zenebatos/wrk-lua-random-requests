@@ -5,7 +5,6 @@ function getAlphaChar()
     return string.char(math.random(48, 57))
 end
 
-
 function getRandomString(length)
            length = length or 1
                 if length < 1 then return nil end
@@ -16,13 +15,8 @@ function getRandomString(length)
                 return table.concat(array)
 end
 
-function removeTrailingSlash(s)
-  return (s:gsub("(.-)/*$", "%1"))
-end
-
-
--- add a random string to the original request path.
+-- Replace 151635 w/ random string
 request = function()
-    local path = wrk.path .. getRandomString(20)
+    local path = string.gsub( wrk.path, "151635", getRandomString(5) )
     return wrk.format(wrk.method, path, wrk.headers, wrk.body)
 end
